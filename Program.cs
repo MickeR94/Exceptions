@@ -59,6 +59,7 @@
                 {
                     reader = new StreamReader(fileName);
 
+                    // This one doesn't seem to do anything.
                     string? line = reader.ReadLine();
                     if (line == null)
                         throw new InvalidOperationException("Filen är tom.");
@@ -67,7 +68,17 @@
                     int number = int.Parse(line); // Kan ge FormatException
 
                     // Division: kan ge DivideByZeroException
-                    return 100.0 / number;
+                    // PS! Only works if there's an int. Originally it was a float. No DivideByZeroException according to the documentation.
+                    // number contains whatever number that's read from numbers.txt
+                    try
+                    {
+                        return 100 / number;
+                    }
+                    catch (DivideByZeroException ex)
+                    {
+                        Console.WriteLine($"Error --> Something went wrong with the calculation: {ex.Message}");
+                        return -1;
+                    }
                 }
                 catch (FormatException ex)
                 {
