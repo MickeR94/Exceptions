@@ -11,12 +11,12 @@
                 try
                 {
                     Console.WriteLine("Försöker läsa fil och räkna...");
-                    var path = Path.Combine(AppContext.BaseDirectory, "numbers.txt");
+                    var path = Path.Combine(AppContext.BaseDirectory, "numbers2.txt");
                     var result = ProcessFile(path);
                   
                     Console.WriteLine($"\nResultat: {result}");
                 }
-                catch (FileNotFoundException ex) // This one doesn't run when I change the name. Goes to Exception ex block...
+                catch (FileNotFoundException ex) // There needed to be a corresponding one down below as well for this to work
                 {
                     // Specifikt fel om filen inte finns
                     Console.WriteLine($"Filen hittades inte: {ex.Message}");
@@ -39,8 +39,8 @@
                 catch (Exception ex)
                 {
                     // Fallback för alla övriga obekanta fel
-                    Console.WriteLine($"Okänt fel: {ex.Message}");
-                    Console.WriteLine(ex.GetType().Name);
+                    Console.WriteLine($"Okänt fel ***: {ex.Message}");
+                    
                 }
                 finally
                 {
@@ -95,11 +95,15 @@
                            // men låta anroparen (t.ex. en högre nivå i applikationen)
                            // bestämma hur man ska återhämta sig. 
                 }
+                catch (FileNotFoundException ex)
+                {
+                    throw new FileNotFoundException($"{ex.Message}");
+                }
                 catch (Exception ex)
                 {
                     // Om vi vill ge en mer meningsfull feltyp till anroparen
                     throw new InvalidOperationException(
-                    "Det gick inte att processa filen.",
+                    "Det gick inte att processa filen +++.",
                     ex); // InnerException = ursprunglig fel
                 }
                 finally
