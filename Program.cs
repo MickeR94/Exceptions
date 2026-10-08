@@ -16,7 +16,7 @@
                   
                     Console.WriteLine($"\nResultat: {result}");
                 }
-                catch (FileNotFoundException ex)
+                catch (FileNotFoundException ex) // This one doesn't run when I change the name. Goes to Exception ex block...
                 {
                     // Specifikt fel om filen inte finns
                     Console.WriteLine($"Filen hittades inte: {ex.Message}");
@@ -31,10 +31,16 @@
                     // Specifikt fel om nolldivision
                     Console.WriteLine($"Kan inte dividera med noll: {ex.Message}");
                 }
+                // Added a catch-block in case the directory can't be found
+                catch (DirectoryNotFoundException ex)
+                {
+                    Console.WriteLine($"Can not find the directory: {ex.Message}");
+                }
                 catch (Exception ex)
                 {
                     // Fallback för alla övriga obekanta fel
                     Console.WriteLine($"Okänt fel: {ex.Message}");
+                    Console.WriteLine(ex.GetType().Name);
                 }
                 finally
                 {
