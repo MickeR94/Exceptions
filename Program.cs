@@ -11,12 +11,12 @@
                 try
                 {
                     Console.WriteLine("Försöker läsa fil och räkna...");
-                    var path = Path.Combine(AppContext.BaseDirectory, "numbers2.txt");
+                    var path = Path.Combine(AppContext.BaseDirectory, "numbers.txt");
                     var result = ProcessFile(path);
                   
                     Console.WriteLine($"\nResultat: {result}");
                 }
-                catch (FileNotFoundException ex) // There needed to be a corresponding one down below as well for this to work
+                catch (FileNotFoundException ex)
                 {
                     // Specifikt fel om filen inte finns
                     Console.WriteLine($"Filen hittades inte: {ex.Message}");
@@ -35,6 +35,10 @@
                 catch (DirectoryNotFoundException ex)
                 {
                     Console.WriteLine($"Can not find the directory: {ex.Message}");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine($"Can't read the file: {ex.Message}"); // By adding this exception, the program indicates if the file is empty.
                 }
                 catch (Exception ex)
                 {
